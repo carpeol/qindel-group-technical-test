@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class ApplicationDateVO extends ValueObject<LocalDateTime> {
 
     private static final String FIELD_NAME = "applicationDate";
+
     public ApplicationDateVO(LocalDateTime value) {
         super(validate(value));
     }

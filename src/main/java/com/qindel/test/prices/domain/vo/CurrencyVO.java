@@ -14,7 +14,8 @@ public class CurrencyVO extends ValueObject<String> {
 
     private static String validate(String value) {
         if (value == null) throw new InvalidField(FIELD_NAME, "null");
-        if (value.length() > 3) throw new InvalidField(FIELD_NAME, value);
-        return value;
+        String normalizedValue = value.trim().toUpperCase();
+        if (!normalizedValue.matches("[A-Z]{3}")) throw new InvalidField(FIELD_NAME, value);
+        return normalizedValue;
     }
 }

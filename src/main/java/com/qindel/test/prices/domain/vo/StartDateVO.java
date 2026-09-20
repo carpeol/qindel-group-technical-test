@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class StartDateVO extends ValueObject<LocalDateTime> {
 
     private static final String FIELD_NAME = "startDate";
+
     public StartDateVO(LocalDateTime value) {
         super(validate(value));
     }

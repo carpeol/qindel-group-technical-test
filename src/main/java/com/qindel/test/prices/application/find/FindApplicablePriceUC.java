@@ -8,12 +8,10 @@ import com.qindel.test.prices.domain.vo.ApplicationDateVO;
 import com.qindel.test.prices.domain.vo.BrandIdVO;
 import com.qindel.test.prices.domain.vo.ProductIdVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Slf4j
-@Service
 public class FindApplicablePriceUC {
 
     private final PriceRepository priceRepository;
@@ -26,8 +24,8 @@ public class FindApplicablePriceUC {
         ProductIdVO productIdVO = new ProductIdVO(productId);
         BrandIdVO brandIdVO = new BrandIdVO(brandId);
         ApplicationDateVO applicationDateVO = new ApplicationDateVO(applicationDate);
+        log.debug("Finding applicable price for productId {}, brandId {} and date {}", productIdVO.value(), brandIdVO.value(), applicationDateVO);
 
-        log.info("Finding price for product {}, brand {} and date {}", productIdVO.value(), brandIdVO.value(), applicationDateVO);
         return priceRepository.findApplicablePrice(brandIdVO, productIdVO, applicationDateVO)
                 .map(this::toApplicablePrice)
                 .orElseThrow(() -> new ApplicablePriceNotFound(brandIdVO, productIdVO, applicationDateVO));
