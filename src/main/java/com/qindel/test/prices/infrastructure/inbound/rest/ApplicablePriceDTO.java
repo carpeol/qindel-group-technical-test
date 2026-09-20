@@ -2,9 +2,9 @@ package com.qindel.test.prices.infrastructure.inbound.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.qindel.test.prices.application.find.ApplicablePriceResponse;
-import com.qindel.test.prices.domain.vo.DateTimeFormats;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record ApplicablePriceDTO(
@@ -14,15 +14,15 @@ public record ApplicablePriceDTO(
         Long brandId,
         @Schema(example = "1")
         Long priceId,
-        @JsonFormat(pattern = DateTimeFormats.PRICE_DATE_PATTERN)
-        @Schema(type = "string", pattern = DateTimeFormats.PRICE_DATE_REGEX,
-                example = DateTimeFormats.PRICE_DATE_EXAMPLE)
+        @JsonFormat(pattern = PriceApiDateTime.PATTERN)
+        @Schema(type = "string", pattern = PriceApiDateTime.REGEX,
+                example = PriceApiDateTime.EXAMPLE)
         LocalDateTime startDate,
-        @JsonFormat(pattern = DateTimeFormats.PRICE_DATE_PATTERN)
-        @Schema(type = "string", pattern = DateTimeFormats.PRICE_DATE_REGEX,
-                example = DateTimeFormats.PRICE_DATE_EXAMPLE)
+        @JsonFormat(pattern = PriceApiDateTime.PATTERN)
+        @Schema(type = "string", pattern = PriceApiDateTime.REGEX,
+                example = PriceApiDateTime.EXAMPLE)
         LocalDateTime endDate,
-        Double priceAmount,
+        BigDecimal priceAmount,
         String currency
 ) {
 

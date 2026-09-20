@@ -1,0 +1,8 @@
+.git
+.github
+.idea
+target/*.jar.original
+target/test-classes
+target/classes
+README.md
+TestJava2022.txt

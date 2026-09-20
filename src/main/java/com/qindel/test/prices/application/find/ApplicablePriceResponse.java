@@ -1,5 +1,6 @@
 package com.qindel.test.prices.application.find;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record ApplicablePriceResponse(
@@ -8,7 +9,7 @@ public record ApplicablePriceResponse(
         Long priceId,
         LocalDateTime startDate,
         LocalDateTime endDate,
-        Double priceAmount,
+        BigDecimal priceAmount,
         String currency
 ) {
 }

@@ -8,8 +8,10 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     open-in-view: false
+  flyway:
+    enabled: true
   h2:
     console:
       enabled: false

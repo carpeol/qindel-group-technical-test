@@ -8,8 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Map;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @Slf4j
 @RestControllerAdvice
@@ -17,24 +16,30 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(InvalidField.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleInvalidField(InvalidField exception) {
+    public ErrorResponseDTO handleInvalidField(InvalidField exception) {
         log.error(exception.getMessage());
-        return Map.of("errorCode", "INVALID_FIELD", "errorMessage", exception.getMessage());
+        return new ErrorResponseDTO("INVALID_FIELD", exception.getMessage());
     }
 
     @ExceptionHandler(ApplicablePriceNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleApplicablePriceNotFound(ApplicablePriceNotFound exception) {
+    public ErrorResponseDTO handleApplicablePriceNotFound(ApplicablePriceNotFound exception) {
         log.error(exception.getMessage());
-        return Map.of("errorCode", "APPLICABLE_PRICE_NOT_FOUND", "errorMessage", exception.getMessage());
+        return new ErrorResponseDTO("APPLICABLE_PRICE_NOT_FOUND", exception.getMessage());
     }
 
     @ExceptionHandler(PriceRepositoryError.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, String> handlePriceRepositoryError(PriceRepositoryError exception) {
-        log.error(exception.getMessage());
-        return Map.of("errorCode", "PRICE_REPOSITORY_ERROR", "errorMessage", exception.getMessage());
+    public ErrorResponseDTO handlePriceRepositoryError(PriceRepositoryError exception) {
+        log.error(exception.getMessage(), exception);
+        return new ErrorResponseDTO("PRICE_REPOSITORY_ERROR", exception.getMessage());
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponseDTO handleInvalidRequestParameter(MethodArgumentTypeMismatchException exception) {
+        String message = "Parameter " + exception.getName() + " has an invalid value";
+        return new ErrorResponseDTO("INVALID_REQUEST_PARAMETER", message);
+    }
 
 }
