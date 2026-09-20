@@ -38,6 +38,9 @@ To launch the application using the Maven Wrapper:
 ```
 
 > Once started, the API will be available at http://localhost:8080/price-service/swagger-ui.html.
+> > The health endpoint will be available at http://localhost:8080/price-service/actuator/health.
+> 
+> > The metrics endpoint will be available at http://localhost:8080/price-service/actuator/prometheus.
 
  ## Building and Running with Docker
 1. Build the JAR file 
